@@ -1,0 +1,13 @@
+Assumptions and thinking:
+
+In designing this system, there were many factors to consider. However, the central questions that arose in any new project were:
+
+How large will the system be?
+Is there a need for scalability or future growth?
+We chose to implement an asynchronous architecture that imports data dynamically, which allowed us to ensure the system would be both responsive and scalable. This approach is essential for efficiently handling large amounts of data.
+
+The design also focused on performance optimization through the use of various techniques like pagination and caching. For instance, when considering the algorithm to handle data, I thought about how it could scale efficiently with a large number of records. I specifically tested how the algorithm would perform when handling a million records and aimed to make it as efficient as possible to handle such loads.
+
+On the frontend, I utilized React Toolkit, React Query, and React Hook Form to maximize efficiency. Every query is cached in React Query to avoid unnecessary re-fetching of data, improving the system’s performance. The global state is updated dynamically based on pagination and filtering, ensuring that the UI responds promptly to changes.
+
+Additionally, I implemented Custom Hooks with TypeScript to improve code maintainability and reusability, ensuring that the application remains modular and easy to expand.

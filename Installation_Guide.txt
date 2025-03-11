@@ -1,0 +1,98 @@
+
+CRM CustomerEngagement - Installation Guide
+Technologies Used
+
+    Backend: .NET 6
+    Frontend: React
+    Database: Postgres
+
+
+-----------------------------------------------------------------------------------
+
+Setting Up the Backend
+
+1. Install dependencies:
+   dotnet restore
+
+2. Configure the database connection:
+   In the appsettings.json, configure the DB connection under:
+   "ConnectionStrings": {
+       "DefaultConnection": "Host=localhost;Port=5433;Database=CustomerEngagementDB;Username=postgres;Password=postgres"
+   }
+
+3. Run Migrations and install the database:
+   dotnet ef migrations add InitialCreate
+   dotnet ef database update
+
+4. Run the Backend:
+   dotnet run
+
+
+-----------------------------------------------------------------------------------
+
+TESTS:
+To upload the project to Docker, I had to separate the tests solution from the main folder (it caused issues with Docker build).  
+To work with the tests, you need to link the test project to the main project by:
+
+1. Navigate to the main project folder:
+   Server/CustomerEngagementDashboardApp
+
+2. Add the test project as a project reference:
+   dotnet sln CustomerEngagementDashboardApp.sln add ../CustomerEngagementDashboardApp.Tests/CustomerEngagementDashboardApp.Tests.csproj
+
+3. Ensure the project was added correctly:
+   dotnet sln CustomerEngagementDashboardApp.sln list
+
+4. Install dependencies:
+   dotnet restore
+
+5. Run tests:
+   dotnet test
+
+
+-----------------------------------------------------------------------------------
+
+Steps to Run the Backend with Docker
+
+*Note: It's important that the test project is disconnected from the main SLN to avoid build issues.*
+
+1. Navigate to the main project folder:
+   Server/CustomerEngagementDashboardApp
+
+2. Build the Docker image:
+   docker build -t backend-app .
+
+3. Run the Docker container:
+   docker run -d -p 8080:80 --name backend-app backend-app
+
+4. Verify that the container is running:
+   docker ps
+
+5. Access the API:
+   http://localhost:8080
+
+
+-----------------------------------------------------------------------------------
+
+Setting Up the Frontend
+
+1. Install dependencies:
+   npm install
+
+2. Run the project:
+   npm run dev
+
+
+Running Docker for the Frontend:
+
+1. Navigate to the main project folder:
+   Client\customer-interactions-dashboard
+
+2. Build the Docker image:
+   docker build -t react-app .
+
+3. Run the container:
+   docker run -p 3000:3000 react-app
+
+
+**All Dockerfiles and related configurations are already included in the project.**
